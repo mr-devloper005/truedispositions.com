@@ -71,14 +71,14 @@ export const visualPresets = {
     mood: 'clean, fast, useful',
     fontDirection: 'modern sans with crisp mono data accents',
     colors: {
-      background: '#f6f9fc',
-      foreground: '#101827',
-      muted: '#5f6b7a',
-      primary: '#0f172a',
-      accent: '#00a6ff',
+      background: '#AACCD6',
+      foreground: '#112E81',
+      muted: '#4647AE',
+      primary: '#112E81',
+      accent: '#4382DF',
       surface: '#ffffff',
     },
-    shape: 'clean grids, pill filters, sharp information hierarchy',
+    shape: 'warm document grids, pill filters, refined information hierarchy',
   },
   'retro-bulletin': {
     label: 'Retro Bulletin',
@@ -112,14 +112,7 @@ export const visualPresets = {
 
 export const visualSystem = {
   productKind: slot4BrandConfig.productKind,
-  recommendedPreset:
-    slot4BrandConfig.productKind === 'visual'
-      ? 'visual-gallery'
-      : slot4BrandConfig.productKind === 'editorial'
-        ? 'editorial-paper'
-        : slot4BrandConfig.productKind === 'directory'
-          ? 'tech-directory'
-          : 'organic-journal',
+  recommendedPreset: 'tech-directory',
   radius: {
     sm: '0.75rem',
     md: '1.25rem',
@@ -141,9 +134,9 @@ export const visualSystem = {
   },
   surfaces: {
     glass: 'border border-white/15 bg-white/10 backdrop-blur-xl',
-    paper: 'border border-black/10 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.08)]',
+    paper: 'border border-[#112E81]/10 bg-white shadow-[0_24px_70px_rgba(17,46,129,0.10)]',
     quiet: 'border border-black/10 bg-black/[0.03]',
-    dark: 'border border-white/10 bg-black/30 shadow-[0_24px_70px_rgba(0,0,0,0.25)]',
+    dark: 'border border-white/10 bg-black/30 shadow-[0_24px_70px_rgba(17,46,129,0.25)]',
   },
   layout: {
     page: 'mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8',

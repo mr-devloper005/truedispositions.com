@@ -180,7 +180,7 @@ function ArticleDetail({ post, related, comments }: { post: SitePost; related: S
   const images = getImages(post)
   return (
     <section className="mx-auto grid max-w-[var(--editable-container)] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_350px] lg:px-8 lg:py-16">
-      <article className="min-w-0 rounded-[2.7rem] border border-[var(--editable-border)] bg-[var(--detail-surface)] p-5 shadow-[0_30px_90px_rgba(15,23,42,0.09)] sm:p-8 lg:p-12">
+      <article className="min-w-0 rounded-[2.7rem] border border-[var(--editable-border)] bg-[var(--detail-surface)] p-5 shadow-[0_30px_90px_rgba(17,46,129,0.10)] sm:p-8 lg:p-12">
         <BackLink task="article" />
         <p className="mt-8 text-xs font-black uppercase tracking-[0.28em] text-[var(--detail-accent)]">{categoryOf(post, 'Article')}</p>
         <h1 className="mt-4 text-4xl font-black leading-[0.98] tracking-[-0.07em] sm:text-5xl lg:text-7xl">{post.title}</h1>
@@ -312,29 +312,82 @@ function BookmarkDetail({ post, related }: { post: SitePost; related: SitePost[]
 
 function PdfDetail({ post, related }: { post: SitePost; related: SitePost[] }) {
   const fileUrl = getField(post, ['fileUrl', 'pdfUrl', 'documentUrl', 'url'])
+  const images = getImages(post)
+  const cover = images[0]
+  const category = categoryOf(post, 'PDF')
+  const author = getField(post, ['author', 'publisher', 'source']) || SITE_CONFIG.name
+  const fileType = getField(post, ['fileType', 'format', 'type']) || 'PDF'
+  const pages = getField(post, ['pages', 'pageCount'])
+  const language = getField(post, ['language', 'lang'])
+  const tags = [category, ...(post.tags || [])].filter(Boolean).slice(0, 6)
   return (
-    <section className="mx-auto grid max-w-[var(--editable-container)] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:px-8 lg:py-16">
-      <article className="rounded-[2.7rem] border border-[var(--editable-border)] bg-white p-6 shadow-[0_30px_90px_rgba(15,23,42,0.08)] sm:p-9">
-        <BackLink task="pdf" />
-        <div className="mt-8 grid gap-6 sm:grid-cols-[120px_1fr]">
-          <div className="flex h-28 w-28 items-center justify-center rounded-[1.8rem] bg-[var(--detail-text)] text-[var(--detail-bg)]"><FileText className="h-12 w-12" /></div>
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-[var(--detail-accent)]">PDF resource</p>
-            <h1 className="mt-3 text-4xl font-black leading-[0.98] tracking-[-0.07em] sm:text-6xl">{post.title}</h1>
-          </div>
-        </div>
-        <BodyContent post={post} />
-        {fileUrl ? (
-          <div className="mt-8 overflow-hidden rounded-[2rem] border border-[var(--editable-border)] bg-[var(--detail-bg)]">
-            <div className="flex items-center justify-between gap-3 border-b border-[var(--editable-border)] bg-white p-4">
-              <span className="text-sm font-black">Document preview</span>
-              <Link href={fileUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[var(--detail-text)] px-4 py-2 text-xs font-black text-[var(--detail-bg)]">Download <Download className="h-4 w-4" /></Link>
+    <section className="mx-auto max-w-[var(--editable-container)] px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+      <BackLink task="pdf" />
+      <div className="mt-8 grid gap-8">
+        <article className="overflow-hidden rounded-[2rem] border border-[var(--editable-border)] bg-white shadow-[0_30px_90px_rgba(17,46,129,0.12)]">
+          <div className="grid gap-0 lg:grid-cols-[minmax(360px,0.44fr)_minmax(0,0.56fr)]">
+            <div className="relative min-h-[420px] bg-[var(--detail-bg)] lg:min-h-[560px]">
+              {cover ? <img src={cover} alt="" className="absolute inset-0 h-full w-full object-cover" /> : null}
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,46,129,0.08),rgba(17,46,129,0.74))]" />
+              <div className="absolute bottom-5 left-5 right-5 max-w-md rounded-2xl border border-white/16 bg-white/12 p-5 text-white backdrop-blur sm:bottom-6 sm:left-6 sm:right-6">
+                <FileText className="h-10 w-10" />
+                <p className="mt-4 text-xs font-black uppercase tracking-[0.16em] text-white/65">PDF cover preview</p>
+                <p className="mt-2 text-sm font-bold leading-6 text-white/80">Open the reader preview or download the resource when a file is available.</p>
+              </div>
             </div>
-            <iframe src={`${fileUrl}#toolbar=0&navpanes=0&scrollbar=0`} title={post.title} className="h-[78vh] w-full" />
+            <div className="p-6 sm:p-9">
+              <p className="text-xs font-black uppercase tracking-[0.28em] text-[var(--detail-accent)]">PDF resource</p>
+              <h1 className="mt-3 text-4xl font-black leading-[0.98] tracking-[-0.07em] sm:text-6xl">{post.title}</h1>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {tags.map((tag) => <span key={tag} className="rounded-full border border-[var(--editable-border)] bg-[var(--detail-bg)] px-3 py-1 text-xs font-black uppercase tracking-[0.14em]">{tag}</span>)}
+              </div>
+              <InfoGrid items={[
+                ['Author', author, UserRound],
+                ['Category', category, Tag],
+                ['File type', fileType, FileText],
+                ['Pages', pages, Bookmark],
+                ['Language', language, Globe2],
+              ]} />
+              <div className="mt-8 rounded-[2rem] border border-[var(--editable-border)] bg-[var(--detail-bg)] p-5">
+                <p className="text-xs font-black uppercase tracking-[0.22em] opacity-55">Download area</p>
+                <p className="mt-2 text-sm font-bold leading-7 opacity-70">Use the action below to open the source PDF in a new tab. Buttons remain connected to the existing document URL fields.</p>
+                {fileUrl ? (
+                  <Link href={fileUrl} target="_blank" rel="noreferrer" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[var(--detail-text)] px-5 py-4 text-sm font-black uppercase tracking-[0.16em] text-[var(--detail-bg)] transition hover:-translate-y-0.5">
+                    Download PDF <Download className="h-4 w-4" />
+                  </Link>
+                ) : (
+                  <div className="mt-5 rounded-2xl border border-dashed border-[var(--editable-border)] bg-white p-4 text-sm font-bold opacity-65">A downloadable PDF link has not been attached yet.</div>
+                )}
+              </div>
+            </div>
           </div>
-        ) : null}
-      </article>
-      <RelatedPanel task="pdf" post={post} related={related} />
+          {fileUrl ? (
+            <div className="border-t border-[var(--editable-border)] bg-[var(--detail-bg)] p-4 sm:p-6">
+              <div className="overflow-hidden rounded-[1.5rem] border border-[var(--editable-border)] bg-white">
+                <div className="flex items-center justify-between gap-3 border-b border-[var(--editable-border)] p-4">
+                  <span className="text-sm font-black">PDF preview</span>
+                  <Link href={fileUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[var(--detail-text)] px-4 py-2 text-xs font-black text-[var(--detail-bg)]">Open file <ExternalLink className="h-4 w-4" /></Link>
+                </div>
+                <iframe src={`${fileUrl}#toolbar=0&navpanes=0&scrollbar=0`} title={post.title} className="h-[76vh] w-full" />
+              </div>
+            </div>
+          ) : null}
+        </article>
+        <aside className="grid gap-5 lg:grid-cols-[360px_minmax(0,1fr)] lg:items-start">
+          <div className="rounded-[2rem] border border-[var(--editable-border)] bg-white/80 p-5 shadow-sm backdrop-blur">
+            <p className="text-xs font-black uppercase tracking-[0.22em] opacity-55">Resource metadata</p>
+            <div className="mt-4 grid gap-3 text-sm font-bold opacity-75">
+              <p className="inline-flex items-center gap-2"><Tag className="h-4 w-4" /> Category: {category}</p>
+              <p className="inline-flex items-center gap-2"><FileText className="h-4 w-4" /> Format: {fileType}</p>
+              <p className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Library: {SITE_CONFIG.name}</p>
+            </div>
+          </div>
+          <div className="space-y-5">
+            {fileUrl ? <Link href={fileUrl} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-2xl bg-[var(--detail-text)] px-5 py-4 text-sm font-black text-[var(--detail-bg)] shadow-lg">Download document <Download className="h-4 w-4" /></Link> : null}
+            <RelatedPanel task="pdf" post={post} related={related} compact />
+          </div>
+        </aside>
+      </div>
     </section>
   )
 }
@@ -366,7 +419,7 @@ function ProfileDetail({ post, related }: { post: SitePost; related: SitePost[] 
 
 function BodyContent({ post, compact = false, tone = 'default' }: { post: SitePost; compact?: boolean; tone?: 'default' | 'light' }) {
   const toneClass = tone === 'light'
-    ? 'text-[#344054] [&_a]:font-black [&_a]:text-[#f26a3d] [&_a]:underline [&_a]:underline-offset-4 [&_h2]:text-[#101828] [&_h3]:text-[#101828] [&_strong]:text-[#101828]'
+    ? 'text-[#4647AE] [&_a]:font-black [&_a]:text-[#4382DF] [&_a]:underline [&_a]:underline-offset-4 [&_h2]:text-[#112E81] [&_h3]:text-[#112E81] [&_strong]:text-[#112E81]'
     : 'opacity-80 [&_a]:font-black [&_a]:text-[var(--detail-accent)] [&_a]:underline [&_a]:underline-offset-4 [&_strong]:font-black'
   return <div className={`article-content mt-8 max-w-none ${compact ? 'text-base leading-8' : 'text-lg leading-9'} ${toneClass}`} dangerouslySetInnerHTML={{ __html: formatPlainText(getBody(post)) }} />
 }
@@ -435,7 +488,7 @@ function RelatedPanel({ task, post, related, compact = false }: { task: TaskKey;
           <div className="mt-4 grid gap-3 text-sm font-bold opacity-75">
             <p className="inline-flex items-center gap-2"><Tag className="h-4 w-4" /> Task: {taskConfig?.label || task}</p>
             <p className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Site: {SITE_CONFIG.name}</p>
-            {post.publishedAt ? <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p> : null}
+            {task !== 'pdf' && post.publishedAt ? <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p> : null}
           </div>
         </div>
       ) : null}

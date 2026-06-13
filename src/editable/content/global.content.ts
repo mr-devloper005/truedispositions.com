@@ -8,29 +8,29 @@ export const globalContent = {
     baseUrl: slot4BrandConfig.baseUrl,
   },
   nav: {
-    tagline: 'Independent reading platform',
+    tagline: 'Curated PDF library',
     primaryLinks: [
-      { label: 'Articles', href: '/articles' },
-      { label: 'Visuals', href: '/image-sharing' },
-      { label: 'Listings', href: '/listings' },
+      { label: 'PDF Library', href: '/pdf' },
+      { label: 'Search', href: '/search' },
+      { label: 'Upload PDF', href: '/create' },
       { label: 'Contact', href: '/contact' },
     ],
     actions: {
-      primary: { label: 'Start exploring', href: '/' },
-      secondary: { label: 'Submit', href: '/contact' },
+      primary: { label: 'Browse PDFs', href: '/pdf' },
+      secondary: { label: 'Upload', href: '/create' },
     },
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
-    description: 'A connected publishing surface for articles, visuals, listings, profiles, bookmarks, and downloadable resources.',
+    tagline: 'PDFs, ebooks, reports, and resources',
+    description: 'A curated document library for downloadable PDFs, guides, reports, manuals, whitepapers, research papers, study materials, and templates.',
     columns: [
       {
         title: 'Explore',
         links: [
-          { label: 'Articles', href: '/articles' },
-          { label: 'Listings', href: '/listings' },
-          { label: 'Images', href: '/image-sharing' },
           { label: 'PDF Library', href: '/pdf' },
+          { label: 'Search Documents', href: '/search' },
+          { label: 'Upload PDF', href: '/create' },
+          { label: 'About Library', href: '/about' },
         ],
       },
       {
@@ -41,7 +41,7 @@ export const globalContent = {
         ],
       },
     ],
-    bottomNote: 'Built for clean discovery and connected publishing.',
+    bottomNote: 'Built for clean PDF discovery and trustworthy downloads.',
   },
   commonLabels: {
     readMore: 'Read more',

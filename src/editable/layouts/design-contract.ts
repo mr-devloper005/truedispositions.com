@@ -1,23 +1,23 @@
 import type { CSSProperties } from 'react'
 
 export const editableRootStyle = {
-  '--slot4-page-bg': '#fff9f2',
-  '--slot4-page-text': '#111111',
-  '--slot4-panel-bg': '#fff3e8',
+  '--slot4-page-bg': '#AACCD6',
+  '--slot4-page-text': '#112E81',
+  '--slot4-panel-bg': '#AACCD6',
   '--slot4-surface-bg': '#ffffff',
-  '--slot4-muted-text': '#4f463f',
-  '--slot4-soft-muted-text': '#6b6258',
-  '--slot4-accent': '#ff6600',
-  '--slot4-accent-fill': '#ff6600',
-  '--slot4-accent-soft': '#d1e0ff',
-  '--slot4-dark-bg': '#111111',
+  '--slot4-muted-text': '#4647AE',
+  '--slot4-soft-muted-text': '#4647AE',
+  '--slot4-accent': '#4382DF',
+  '--slot4-accent-fill': '#4382DF',
+  '--slot4-accent-soft': '#AACCD6',
+  '--slot4-dark-bg': '#112E81',
   '--slot4-dark-text': '#ffffff',
-  '--slot4-media-bg': '#e9e2da',
-  '--slot4-cream': '#fdf1e5',
-  '--slot4-warm': '#fff9f2',
-  '--slot4-lavender': '#d1e0ff',
-  '--slot4-gray': '#f6f6f6',
-  '--slot4-body-gradient': 'linear-gradient(180deg, #fdf1e5 0%, #fff9f2 38%, #f6f6f6 100%)',
+  '--slot4-media-bg': '#AACCD6',
+  '--slot4-cream': '#AACCD6',
+  '--slot4-warm': '#AACCD6',
+  '--slot4-lavender': '#AACCD6',
+  '--slot4-gray': '#AACCD6',
+  '--slot4-body-gradient': 'linear-gradient(180deg, #AACCD6 0%, #ffffff 42%, #AACCD6 100%)',
 } as CSSProperties
 
 export const editablePalette = {
@@ -40,7 +40,7 @@ export const editablePalette = {
   warmBg: 'bg-[var(--slot4-warm)]',
   lavenderBg: 'bg-[var(--slot4-lavender)]',
   grayBg: 'bg-[var(--slot4-gray)]',
-  border: 'border-black/[0.06]',
+  border: 'border-[#112E81]/10',
   darkBorder: 'border-white/10',
   shadow: 'shadow-[0_12px_40px_rgba(0,0,0,0.08)]',
   shadowStrong: 'shadow-[0_18px_70px_rgba(0,0,0,0.14)]',
@@ -50,7 +50,7 @@ export const editablePalette = {
 export const editableDesignContract = {
   shell: {
     page: `min-h-screen ${editablePalette.pageBg} ${editablePalette.pageText}`,
-    section: 'mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8',
+    section: 'mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8',
     sectionY: 'py-14 sm:py-16 lg:py-20',
   },
   layout: {
@@ -71,17 +71,18 @@ export const editableDesignContract = {
     dark: `rounded-2xl ${editablePalette.darkBg} ${editablePalette.darkText} ${editablePalette.shadowStrong}`,
   },
   button: {
-    primary: `inline-flex items-center justify-center rounded-full ${editablePalette.darkBg} px-8 py-3.5 text-sm font-semibold text-white transition hover:opacity-90`,
-    secondary: `inline-flex items-center justify-center rounded-full border ${editablePalette.border} ${editablePalette.surfaceBg} px-8 py-3.5 text-sm font-semibold ${editablePalette.surfaceText} transition hover:bg-black/[0.03]`,
-    accent: `inline-flex items-center justify-center rounded-full ${editablePalette.accentBg} px-8 py-3.5 text-sm font-semibold text-white transition hover:opacity-90`,
+    primary: `inline-flex items-center justify-center rounded-full ${editablePalette.darkBg} px-8 py-3.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:shadow-xl motion-reduce:transform-none`,
+    secondary: `inline-flex items-center justify-center rounded-full border ${editablePalette.border} ${editablePalette.surfaceBg} px-8 py-3.5 text-sm font-semibold ${editablePalette.surfaceText} transition duration-300 hover:-translate-y-0.5 hover:bg-black/[0.03] motion-reduce:transform-none`,
+    accent: `inline-flex items-center justify-center rounded-full ${editablePalette.accentBg} px-8 py-3.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:shadow-xl motion-reduce:transform-none`,
   },
   media: {
     frame: `relative overflow-hidden rounded-xl ${editablePalette.mediaBg}`,
     ratio: 'aspect-[2/3]',
   },
   motion: {
-    lift: 'transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_55px_rgba(0,0,0,0.14)]',
-    fade: 'transition duration-300 hover:opacity-80',
+  lift: 'transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_55px_rgba(17,46,129,0.16)] motion-reduce:transform-none',
+    fade: 'transition duration-300 hover:opacity-80 motion-reduce:transition-none',
+    reveal: 'animate-in fade-in slide-in-from-bottom-4 duration-700 motion-reduce:animate-none',
   },
 } as const
 
