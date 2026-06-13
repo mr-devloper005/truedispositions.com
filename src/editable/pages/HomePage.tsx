@@ -29,7 +29,7 @@ function uniquePosts(posts: SitePost[]) {
 }
 
 export default async function HomePage() {
-  const primaryTask = (SITE_CONFIG.tasks.find((task) => task.enabled)?.key || 'article') as TaskKey
+  const primaryTask = (SITE_CONFIG.tasks.find((task) => task.enabled && task.key === 'pdf')?.key || SITE_CONFIG.tasks.find((task) => task.enabled)?.key || 'pdf') as TaskKey
   const primaryRoute = SITE_CONFIG.taskViews[primaryTask] || `/${primaryTask}`
   const taskFeed: TaskFeedItem[] = await fetchHomeTaskFeed(12, { fresh: true, timeoutMs: 8000 })
   const primaryPosts = uniquePosts(taskFeed.find(({ task }) => task.key === primaryTask)?.posts || []).slice(0, 24)

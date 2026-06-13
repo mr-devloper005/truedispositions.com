@@ -17,6 +17,17 @@ body {
   background-image: var(--slot4-body-gradient) !important;
 }
 
+:root {
+  --editable-container: 1180px;
+  --editable-border: rgba(17, 46, 129, 0.16);
+  --editable-page-bg: var(--slot4-page-bg);
+  --editable-page-text: var(--slot4-page-text);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 ::selection {
   background: color-mix(in oklab, var(--slot4-accent-fill) 22%, transparent);
   color: var(--slot4-page-text);
@@ -41,4 +52,59 @@ body {
 
 .article-content a {
   color: var(--slot4-accent-fill);
+}
+
+.pdf-reveal {
+  animation: pdf-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pdf-reveal-delay-1 {
+  animation-delay: 90ms;
+}
+
+.pdf-reveal-delay-2 {
+  animation-delay: 180ms;
+}
+
+.pdf-reveal-delay-3 {
+  animation-delay: 270ms;
+}
+
+.pdf-card-hover {
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.pdf-card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 60px rgba(17, 46, 129, 0.16);
+}
+
+@keyframes pdf-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .pdf-card-hover:hover {
+    transform: none;
+  }
 }
